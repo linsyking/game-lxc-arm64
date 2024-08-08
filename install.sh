@@ -11,12 +11,14 @@ export QT_QPA_PLATFORM=wayland
 export DISPLAY=:1
 export PULSE_SERVER=unix:/mnt/1000/pulse/native
 export PULSE_LATENCY_MSEC=50
-export XAUTHORITY=\$(ls /mnt/1000/xauth*)""" >> ~/.bashrc
+export XAUTHORITY=\$(ls /mnt/1000/xauth*)
+alias wine=\"box64 /root/wine-9.14-staging-tkg-amd64/bin/wine64\"
+""" >> ~/.bashrc
 
 dpkg --add-architecture armhf
 apt-get update
 apt-get upgrade -y
-apt-get install weston mesa-utils vulkan-tools ninja-build gcc-arm-linux-gnueabihf wget git cmake -y
+apt-get install weston mesa-utils vulkan-tools ninja-build gcc-arm-linux-gnueabihf wget git cmake xz-utils -y
 apt-get install libc6:armhf -y
 
 
@@ -64,5 +66,6 @@ apt-get install -y libasound2:arm64 libc6:arm64 libglib2.0-0:arm64 libgphoto2-6:
 		libxrender1:arm64 libxxf86vm1:arm64 libc6:arm64 libcap2-bin:arm64
 
 wget https://github.com/Kron4ek/Wine-Builds/releases/download/9.14/wine-9.14-staging-tkg-amd64.tar.xz
-
+tar xf wine-9.14-staging-tkg-amd64.tar.xz
+rm wine-9.14-staging-tkg-amd64.tar.xz
 # Now you can run wine!

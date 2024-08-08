@@ -103,3 +103,11 @@ bash <(curl -s https://raw.githubusercontent.com/linsyking/game-lxc-arm64/main/i
 ```
 
 The script may run about 40 - 60 minutes.
+
+After finished, run:
+
+```bash
+wine winecfg
+```
+
+to initialize the wine.
