@@ -28,20 +28,18 @@ Remove the `network-online` dependency.
 
 Run `lxd init` and type Enter until it ends.
 
-Make sure your user id is 1000. (It's possible to use other user ID but it's too complex)
-
 ## Setting up the ID mapping
 
 Change `/etc/subuid` and `/etc/subgid`:
 
 ```
-root:1000:1
+root:$UID:1
 lxd:1000000:1000000000
 root:1000000:1000000000
 <USER>:1001000000:1000000
 ```
 
-Change `<USER>` to your user name.
+Change `<USER>` to your user name. Change $UID.
 
 ## Create the container
 
@@ -67,4 +65,20 @@ We use `debian/12` image.
 
 ```
 lxc launch images:debian/12 game
+```
+
+## Configure the container
+
+```
+lxc config set game raw.idmap "both $UID 1000"
+lxc config device add game gpu gpu
+lxc config device set game gpu uid 1000
+lxc config device set game gpu gid 1000
+
+lxc config device add game X0 disk
+lxc config device set game X0 path /tmp/.X11-unix
+lxc config device set game X0 source /tmp/.X11-unix
+lxc config device add game user disk
+lxc config device set game user path /mnt/1000
+lxc config device set game user path /run/user/$UID # Change UID
 ```
