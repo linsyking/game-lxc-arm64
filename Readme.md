@@ -82,3 +82,47 @@ lxc config device add game user disk
 lxc config device set game user path /mnt/1000
 lxc config device set game user path /run/user/$UID # Change UID
 ```
+
+You can also mount another directory to use in the container:
+
+```
+lxc config device add game disk1 disk
+lxc config device set game disk1 path /mnt/disk1 # Path in the container
+lxc config device set game disk1 path /path on your host
+```
+
+Now restart the container:
+
+```
+lxc restart game
+```
+
+Enter the shell:
+
+```
+lxc exec game -- bash
+```
+
+Run `apt update` and `apt upgrade` to update the system.
+
+Install the following packages:
+
+```
+apt install weston mesa-utils vulkan-tools
+```
+
+Now change `.bashrc`:
+
+```
+export XDG_RUNTIME_DIR=/mnt/1000
+export WAYLAND_DISPLAY=wayland-0
+export QT_QPA_PLATFORM=wayland
+export DISPLAY=:1
+export PULSE_SERVER=unix:/mnt/1000/pulse/native
+export PULSE_LATENCY_MSEC=50
+export XAUTHORITY=$(ls /mnt/1000/xauth*)
+```
+
+Run `source .bashrc` to reload.
+
+You should be able to run graphical apps now.
