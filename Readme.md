@@ -126,3 +126,5 @@ export XAUTHORITY=$(ls /mnt/1000/xauth*)
 Run `source .bashrc` to reload.
 
 You should be able to run graphical apps now.
+
+Use `install.sh` to install box64 and box86 and wine.
