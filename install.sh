@@ -16,8 +16,7 @@ export XAUTHORITY=\$(ls /mnt/1000/xauth*)""" >> ~/.bashrc
 dpkg --add-architecture armhf
 apt-get update
 apt-get upgrade -y
-apt-get install weston mesa-utils vulkan-tools -y
-apt-get install ninja-build gcc-arm-linux-gnueabihf wget git cmake -y
+apt-get install weston mesa-utils vulkan-tools ninja-build gcc-arm-linux-gnueabihf wget git cmake -y
 apt-get install libc6:armhf -y
 
 
@@ -40,6 +39,8 @@ cd build
 ninja install
 cd ..
 cd ..
+
+rm -rf box86 box64
 
 
 # Install wine dependencies
