@@ -101,3 +101,5 @@ apt update
 apt install curl -y
 bash <(curl -s https://raw.githubusercontent.com/linsyking/game-lxc-arm64/main/install.sh)
 ```
+
+The script may run about 40 - 60 minutes.
