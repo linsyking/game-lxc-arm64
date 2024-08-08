@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Run as root
 
 echo """
@@ -11,16 +13,11 @@ export PULSE_SERVER=unix:/mnt/1000/pulse/native
 export PULSE_LATENCY_MSEC=50
 export XAUTHORITY=\$(ls /mnt/1000/xauth*)""" >> ~/.bashrc
 
-source ~/.bashrc
-
-apt-get update
-apt-get upgrade -y
-
-apt-get install weston mesa-utils vulkan-tools -y
-
 dpkg --add-architecture armhf
 apt-get update
-apt-get install ninja-build gcc-arm-linux-gnueabihf -y
+apt-get upgrade -y
+apt-get install weston mesa-utils vulkan-tools -y
+apt-get install ninja-build gcc-arm-linux-gnueabihf wget git cmake -y
 apt-get install libc6:armhf -y
 
 

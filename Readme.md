@@ -76,20 +76,15 @@ lxc config device add $cname gpu gpu
 lxc config device set $cname gpu uid 1000
 lxc config device set $cname gpu gid 1000
 
-lxc config device add $cname X0 disk
-lxc config device set $cname X0 path /tmp/.X11-unix
-lxc config device set $cname X0 source /tmp/.X11-unix
-lxc config device add $cname user disk
-lxc config device set $cname user path /mnt/1000
-lxc config device set $cname user path /run/user/$UID # Change UID
+lxc config device add $cname X0 disk source=/tmp/.X11-unix path=/tmp/.X11-unix
+
+lxc config device add $cname user disk source=/run/user/$UID path=/mnt/1000
 ```
 
 You can also mount another directory to use in the container:
 
 ```
-lxc config device add $cname disk1 disk
-lxc config device set $cname disk1 path /mnt/disk1 # Path in the container
-lxc config device set $cname disk1 path /path on your host
+lxc config device add $cname disk1 disk source=/<path on your host> path=/mnt/disk1 # Path in the container
 ```
 
 Now restart the container:
@@ -98,12 +93,11 @@ Now restart the container:
 lxc restart $cname
 ```
 
-Enter the shell:
+Enter the shell and install wine:
 
 ```
 lxc exec $cname -- bash
+apt update
+apt install curl -y
+bash <(curl -s https://raw.githubusercontent.com/linsyking/game-lxc-arm64/main/install.sh)
 ```
-
-Copy `install.sh` to the container.
-
-Run `install.sh` to install box64 and box86 and wine.
