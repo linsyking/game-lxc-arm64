@@ -12,4 +12,4 @@ Add your user to the group `lxd`:
 sudo usermod -aG lxd $USER
 ```
 
-**Hint**. You might encounter slow startup of lxd. This is due to `systemd-networkd` problem. You need to add the network interface.
+The default `lxd` service is not compatible with NetworkManager. Manually change the file
